@@ -34,7 +34,7 @@ class UnidadLive extends Component
         $this->validate();
         Unidad::updateOrCreate(['NombreUnidad'=>$this->NombreUnidadAntiguo],
         [
-            'NombreUnidad'=>$this->NombreUnidad,
+            'NombreUnidad'=> strtoupper($this->NombreUnidad),
             'id_departamento'=>$this->departamento,
         ]);
         $this->CerrarModal();

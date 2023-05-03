@@ -14,7 +14,20 @@
                             </h1>
                             <!--boton de agregar con tailwind-->
                             <div class="flex justify-center items-center mt-5">
-                                <a href="{{route('remisionmaterial.Remision',['req'=>$departamento])}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                <!--enlace redireccion-->
+                                <div class="container w-4/5 mx-auto pt-7 pb-3">
+                                    <a
+                                    class="bg-orange-500 hover:bg-orange-700 shadow-md shadow-gray-700 text-white font-bold py-2 px-4 rounded" 
+                                    href="
+                                        {{
+                                            route('pagadmin.index',['id' => $departamento])
+                                        }}
+                                    ">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                        VOLVER ATRAS
+                                    </a>
+                                </div>
+                                <a href="{{route('remisionmaterial.Remision',['req'=>$departamento])}}" class="bg-green-500 hover:bg-green-700 shadow-md shadow-gray-700 text-white font-bold py-2 px-4 rounded">
                                     AGREGAR REMISIONES
                                     <i class="fas fa-plus"></i>
                                 </a>
@@ -124,7 +137,6 @@
                                                 <a href="
                                                     {{route('remisionmaterial.show', [$rem->numRemision,'dato'=>$rem->personal->departamento])}}
                                                 "
-                                                target="_blank" 
                                                 class="bg-blue-500 hover:bg-blue-700 text-white shadow-black shadow-sm font-bold py-2 px-2 my-2 mx-2 rounded">
                                                     VER
                                                 </a>
@@ -135,7 +147,6 @@
                                                     <a href="
                                                         {{route('remisionmaterial.edit', [$rem->numRemision, 'dato'=>$rem->personal->departamento])}}
                                                     "
-                                                    target="_blank" 
                                                     class="bg-green-500 hover:bg-green-700 text-white shadow-black shadow-sm font-bold py-2 px-2 my-2 mx-2 rounded">
                                                         DEVOLUCIÓN
                                                     </a>

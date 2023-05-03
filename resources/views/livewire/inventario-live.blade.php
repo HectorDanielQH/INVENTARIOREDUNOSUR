@@ -1,15 +1,28 @@
 <div>
+    <!--enlace redireccion-->
+    <div class="container w-4/5 mx-auto pt-7 pb-3">
+        <a
+        class="bg-orange-500 hover:bg-orange-700 animate-pulse text-white font-bold py-2 px-4 rounded" 
+        href="
+            {{
+                 route('pagadmin.index',['id' => $departamento])
+            }}
+        ">
+            <i class="fa-solid fa-arrow-left"></i>
+            VOLVER ATRAS
+        </a>
+    </div>
     {{-- Because she competes with no one, no one can compete with her. --}}
     <div class="container mx-auto  flex ">
         <div class="flex w-full justify-center py-4 mx-2">
-            <label for="">BUSCA LA UNIDAD</label>
-            <select wire:model="id_unidad" id="unidad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+            <label for="inventario" class="text-white">BUSCA LA UNIDAD</label>
+            <select wire:model="id_unidad" id="inventario" class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                 <option value="" selected>Selecciona una unidad</option>
                 @foreach($unidades as $unidad)
                     <option value="{{$unidad->id}}">{{$unidad->NombreUnidad}}</option>
                 @endforeach
             </select>
-            <button class="block mx-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" data-modal-toggle="authentication-modal" wire:click="MostrarModal()">
+            <button class="block mx-2 text-white bg-orange-500 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" type="button" data-modal-toggle="authentication-modal" wire:click="MostrarModal()">
                 AGREGAR PRODUCTO AL INVENTARIO    
             </button>
             <button class="block ml-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button" data-modal-toggle="authentication-modal" wire:click="MostrarModalActivo()">
@@ -24,11 +37,11 @@
     <div class="container mx-auto">
         <div class="flex flex-wrap -mx-3">
             <div class="w-full px-3">
-                <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <div class="flex flex-wrap -mx-3">
                         <div class="w-full px-3">
                             <table class="table-auto w-full">
-                                <thead>
+                                <thead class="bg-orange-500 text-white">
                                     <tr>
                                         <th class="px-4 py-2">CANTIDAD</th>
                                         <th class="px-4 py-2">CODIGO</th>
@@ -44,12 +57,12 @@
                                 <tbody>
                                     @forelse ($inventarios as $item)
                                         <tr>
-                                            <td class="border px-4 py-2">{{$item->cantidad}}</td>
-                                            <td class="border px-4 py-2">{{$item->codigo}}</td>
-                                            <td class="border px-4 py-2">{{$item->detalle}}</td>
-                                            <td class="border px-4 py-2">{{$item->activo->Activo}}</td>
-                                            <td class="border px-4 py-2">{{$item->serie}}</td>
-                                            <td class="border px-4 py-2">
+                                            <td class="px-4 py-2 text-center text-orange-500">{{$item->cantidad}}</td>
+                                            <td class="px-4 py-2 text-center text-orange-500">{{$item->codigo}}</td>
+                                            <td class="px-4 py-2 text-center text-orange-500">{{$item->detalle}}</td>
+                                            <td class="px-4 py-2 text-center text-orange-500">{{$item->activo->Activo}}</td>
+                                            <td class="px-4 py-2 text-center text-orange-500">{{$item->serie}}</td>
+                                            <td class="px-4 py-2 text-center text-orange-500">
                                                 @if ($item->estado == 1)
                                                     {{__('DE BAJA')}}
                                                 @elseif ($item->estado == 2)
@@ -64,8 +77,8 @@
                                                     {{__('NO EXISTE')}}
                                                 @endif
                                             </td>
-                                            <td class="border px-4 py-2">{{$item->precio}}</td>
-                                            <td class="border px-4 py-2">
+                                            <td class="px-4 py-2 text-center text-orange-500">{{$item->precio}}</td>
+                                            <td class="px-4 py-2 text-center text-orange-500">
                                                 @if($item->activo->Activo=='MUEBLES')
                                                     <!--calcular diferencia entre dias-->
                                                     @php
@@ -88,8 +101,8 @@
                                                     {{ round(($item->precio-($item->precio*(0.25/4)*(1/365)*$dias+0)),2) }}
                                                 @endif
                                             </td>
-                                            <td class="border flex px-4 py-2">
-                                                <button class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" data-modal-toggle="authentication-modal" wire:click="MostrarModalActualizar('{{$item->id}}')">
+                                            <td class="flex px-4 py-2">
+                                                <button class="block text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800" type="button" data-modal-toggle="authentication-modal" wire:click="MostrarModalActualizar('{{$item->id}}')">
                                                     <i class="fas fa-edit"></i>  
                                                 </button>
                                                 <button class="block ml-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button" data-modal-toggle="authentication-modal" wire:click="EliminarInventario('{{$item->id}}')">
@@ -99,7 +112,7 @@
                                         </tr>
                                     @empty
                                             <tr>
-                                                <td colspan="9" class="px-4 py-2 text-center">No hay registros</td>
+                                                <td class="px-4 py-2 text-center text-orange-500" colspan="9">No hay registros</td>
                                             </tr>
                                     @endforelse
                                 </tbody>
@@ -125,11 +138,42 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label for="cantidad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">CANTIDAD</label>
-                                <input type="number" wire:model="cantidadProducto" id="cantidad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="CANTIDAD" required>
+                                <input min="0" type="number" wire:model="cantidadProducto" id="cantidad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="CANTIDAD" required>
+                                <script>
+                                    let input = document.getElementById("cantidad");
+                                    input.addEventListener("input", function(event) {
+                                        let inputValue = event.target.value;
+                                        inputValue = inputValue.replace(/[^0-9]/g, "");
+                                        if(inputValue.length>4){
+                                            inputValue = inputValue.slice(0, 4);
+                                        }
+                                        event.target.value = inputValue;
+                                    });
+                                </script>
+                                @error('cantidadProducto') 
+                                    <h1 class="text-yellow-500 mt-1 text-center">
+                                        {{ __('Ingrese datos validos') }}
+                                    </h1>
+                                @enderror 
                             </div>
                             <div>
                                 <label for="codigoProducto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">CÓDIGO DEL PRODUCTO</label>
                                 <input type="text" wire:model="codigoProducto" id="codigoProducto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="CODIGO" required>
+                                @error('codigoProducto') 
+                                    <h1 class="text-yellow-500 mt-1 text-center">
+                                        {{ __('Ingrese datos validos') }}
+                                    </h1>
+                                @enderror 
+                                <script>
+                                    let input = document.getElementById("codigoProducto");
+                                    input.addEventListener("input", function(event) {
+                                        let inputValue = event.target.value;
+                                        if(inputValue.length>20){
+                                          inputValue = inputValue.slice(0, 20);
+                                        }
+                                        event.target.value = inputValue;
+                                    });
+                                  </script>
                             </div>
                         </div>
 
@@ -138,6 +182,11 @@
                         <div>
                             <label for="descripciónProducto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">DESCRIPCIÓN PRODUCTO</label>
                             <input type="text" wire:model="descripcionProducto" id="descripciónProducto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="DESCRIPCIÓN DEL PRODUCTO" required>
+                            @error('descripcionProducto') 
+                                <h1 class="text-yellow-500 mt-1 text-center">
+                                    {{ __('Ingrese datos validos') }}
+                                </h1>
+                            @enderror 
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
@@ -148,6 +197,11 @@
                                         <option value="{{$activo->id}}">{{$activo->Activo}}</option>
                                     @endforeach
                                 </select>
+                                @error('activoProducto') 
+                                    <h1 class="text-yellow-500 mt-1 text-center">
+                                        {{ __('Selecciona un activo') }}
+                                    </h1>
+                                @enderror 
                             </div>
                             <div>
                                 <label for="unidad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">UNIDAD A LA QUE PERTENECE</label>
@@ -157,6 +211,11 @@
                                         <option value="{{$unidad->id}}">{{$unidad->NombreUnidad}}</option>
                                     @endforeach
                                 </select>
+                                @error('id_unidad') 
+                                    <h1 class="text-yellow-500 mt-1 text-center">
+                                        {{ __('Selecciona una unidad') }}
+                                    </h1>
+                                @enderror 
                             </div>
                         </div>
 
@@ -166,6 +225,11 @@
                             <div>
                                 <label for="serieProducto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">SERIE MODELO</label>
                                 <input type="text" wire:model="serieProducto" id="serieProducto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="INSERTA LA SERIE DEL MODELO" required>
+                                @error('serieProducto') 
+                                    <h1 class="text-yellow-500 mt-1 text-center">
+                                        {{ __('Ingresa datos validos') }}
+                                    </h1>
+                                @enderror 
                             </div>
                             <div>
                                 <label for="estadoProducto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">SELECCCIONE EL ESTADO</label>
@@ -177,6 +241,11 @@
                                     <option value="4">MUY BUENO</option>
                                     <option value="5">NUEVO</option>
                                 </select>
+                                @error('estadoProducto') 
+                                    <h1 class="text-yellow-500 mt-1 text-center">
+                                        {{ __('Selecciona un estado') }}
+                                    </h1>
+                                @enderror 
                             </div>
                         </div>
 
@@ -186,11 +255,40 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label for="precioProducto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">PRECIO DEL PRODUCTO</label>
-                                <input type="number" wire:model="precioProducto" id="precioProducto" step="0.01" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="INSERTA UN PRECIO ESTIMADO DEL PRODUCTO" required>
+                                <input type="number" min="0" wire:model="precioProducto" id="precioProducto" step="0.01" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="INSERTA UN PRECIO ESTIMADO DEL PRODUCTO" required>
+                                <script>
+                                    let input = document.getElementById("precioProducto");
+                                    input.addEventListener("input", function(event) {
+                                        let inputValue = event.target.value;
+                                        inputValue = inputValue.replace(/[^0-9]/g, "");
+                                        if(inputValue.length>6){
+                                            inputValue = inputValue.slice(0, 6);
+                                        }
+                                        event.target.value = inputValue;
+                                    });
+                                </script>
+                                @error('precioProducto') 
+                                    <h1 class="text-yellow-500 mt-1 text-center">
+                                        {{ __('Ingrese datos validos') }}
+                                    </h1>
+                                @enderror   
                             </div>
                             <div>
                                 <label for="anioCompraProducto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">FECHA DE COMPRA DEL PROD.</label>
-                                <input type="date" wire:model="anioCompraProducto" id="anioCompraProducto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="INSERTA UN PRECIO ESTIMADO DEL PRODUCTO" required>
+                                <input type="date" wire:model="anioCompraProducto" id="anioCompraProducto" 
+                                        class="bg-gray-100 border border-gray-300 text-orange-400 text-sm rounded-lg 
+                                                focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 
+                                                dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 
+                                                dark:text-white" 
+                                        placeholder="INSERTA UN PRECIO ESTIMADO DEL PRODUCTO" 
+                                        required 
+                                        max="{{ date('Y-m-d') }}">
+
+                                @error('anioCompraProducto') 
+                                    <h1 class="text-yellow-500 mt-1 text-center">
+                                        {{ __('Ingrese la fecha') }}
+                                    </h1>
+                                @enderror  
                             </div>
                         </div>
 
@@ -202,7 +300,7 @@
 
 
         
-                        <button wire:click="Guardar()" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">REGISTRAR PRODUCTO</button>
+                        <button wire:click="Guardar()" class="w-full text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">REGISTRAR PRODUCTO</button>
                     </div>
                 </div>
             </div>
@@ -224,15 +322,28 @@
                             <div>
                                 <label for="TipoActivo"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">AGREGA EL TIPO DE ACTIVO</label>
                                 <div>
-                                    <input type="text"  wire:model="TipoActivo" id="TipoActivo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="INGRESA EL ACTIVO" required>                               
-                                    <button wire:click="GuardarActivo()" class="w-full my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar Activo</button>
+                                    <input type="text"  wire:model="TipoActivo" id="TipoActivo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="INGRESA EL ACTIVO" required>
+                                    @error('TipoActivo') 
+                                        <h1 class="text-yellow-500 mt-1 text-center">
+                                            {{ __('Ingrese datos validos') }}
+                                        </h1>
+                                    @enderror                                
+                                    <button wire:click="GuardarActivo()" class="w-full my-2 text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">Registrar Activo</button>
+                                    <script>
+                                        let input = document.getElementById("TipoActivo");
+                                        input.addEventListener("input", function(event) {
+                                          let inputValue = event.target.value;
+                                          inputValue = inputValue.replace(/[0-9]/g, "");
+                                          event.target.value = inputValue;
+                                        });
+                                      </script>  
                                 </div>
                             </div>
                             <div class="w-full px-3">
                                 <label for="ci"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">LISTA DE ACTIVOS</label>
-                                <table class="table-auto w-full">
+                                <table class="table-auto w-full bg-gray-900">
                                     <thead>
-                                        <tr>
+                                        <tr class="bg-orange-600 text-white">
                                             <th class="px-4 py-2 text-white">DESCRIPCION</th>
                                             <th class="px-4 py-2 text-white">ELIMINAR</th>
                                         </tr>
@@ -240,14 +351,14 @@
                                     <tbody>
                                         @forelse($activos as $activo)
                                             <tr>
-                                                <td class="border px-4 py-2 text-white">{{$activo->Activo}}</td>
-                                                <td class="border px-4 py-2">
+                                                <td class="px-4 py-2 text-orange-600">{{$activo->Activo}}</td>
+                                                <td class="px-4 py-2">
                                                     <button wire:click="EliminarActivo({{$activo->id}})" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Eliminar</button>
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td class="border px-4 py-2 text-white">No hay activos registrados</td>
+                                                <td class="px-4 py-2 text-orange-600">No hay activos registrados</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

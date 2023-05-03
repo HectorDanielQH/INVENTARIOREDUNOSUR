@@ -121,10 +121,19 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="w-full">
-                                <button type="submit" class=" mt-7 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            <div class="w-full flex justify-around">
+                                <a 
+                                    class="mt-7 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                    href="{{
+                                    redirect()->back()->getTargetUrl()
+                                }}">
+                                    <i class="fas fa-arrow-left"></i>
+                                    {{__('CANCELAR')}}
+                                </a>
+                                <button type="submit" class=" mt-7 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
 
                                 >
+                                    <i class="fas fa-save"></i>
                                     {{__('GUARDAR')}}
                                 </button>
                             </div>

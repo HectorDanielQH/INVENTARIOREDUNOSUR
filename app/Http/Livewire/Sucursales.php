@@ -11,7 +11,7 @@ class Sucursales extends Component
     public $departamento;
     public function render()
     {
-        $departamentos_values = ['POTOSI','SANTA CRUZ', 'COCHABAMBA','CHUQUISACA','TARIJA','BENI','PANDO','ORURO','LA PAZ'];
+        $departamentos_values = ['POTOSI','CHUQUISACA','TARIJA','ORURO'];
         $departamentos_values1=[];
         $valor=Sucursal::all();
         foreach ($valor as $key => $value) {

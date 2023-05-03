@@ -65,7 +65,7 @@ class RemisionController extends Controller
         $remisiones=Remision::where('numRemision',$remision)
                             ->where('departamento',$_GET['dato'])
                             ->get();
-        $pdf = \PDF::loadView('pdfremision', compact('remisiones'));
+        $pdf = PDF::loadView('pdfremision', compact('remisiones'));
         return $pdf->stream('remision.pdf');
     }
     /**
@@ -104,7 +104,7 @@ class RemisionController extends Controller
                 'detalledevolucion'=>$detalledevolucion
             ]);
         }
-        return redirect()->back();
+        return redirect()->route('remisionmaterial.create', ['req' => $_GET['dato']]);
     }
 
     /**

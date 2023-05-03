@@ -14,6 +14,7 @@ class InventarioLive extends Component
     public $modal=false;
     public $cantidadProducto,$codigoProducto,$id_unidad,$serieProducto,$estadoProducto,$precioProducto,$descripcionProducto,$activoProducto,$idProducto,$anioCompraProducto;
     //-----------------------------------------------
+    //--------------------------------------------
     public function render()
     {
         $unidades=Unidad::where('id_departamento',$this->departamento)->get();
@@ -47,11 +48,22 @@ class InventarioLive extends Component
 
 
     public function Guardar(){
+        $this->validate([
+            'cantidadProducto'=>'required|min:1',
+            'codigoProducto'=>'required|min:1|max:20',
+            'descripcionProducto'=>'required|min:5',
+            'activoProducto'=>'required',
+            'id_unidad'=>'required',
+            'serieProducto'=>'required',
+            'estadoProducto'=>'required',
+            'precioProducto'=>'required',
+            'anioCompraProducto'=>'required'
+        ]);
         Inventario::updateOrCreate(['id'=>$this->idProducto],
         [
             'cantidad'=>$this->cantidadProducto,
             'codigo'=>$this->codigoProducto,
-            'detalle'=>$this->descripcionProducto,
+            'detalle'=>strtoupper($this->descripcionProducto),
             'id_activo'=>$this->activoProducto,
             'serie'=>$this->serieProducto,
             'estado'=>$this->estadoProducto,
@@ -93,8 +105,9 @@ class InventarioLive extends Component
         $this->modal_activo=true;
     } 
     public function GuardarActivo(){
+        $this->validate(['TipoActivo'=>'required|min:4',]);
         Activos::Create([
-            'Activo'=>$this->TipoActivo,
+            'Activo'=>strtoupper($this->TipoActivo),
             'id_departamento'=>$this->departamento
         ]);
         $this->CerrarModal();

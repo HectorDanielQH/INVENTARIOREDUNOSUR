@@ -13,6 +13,12 @@ class EncargadoLive extends Component
 {
     public $departamento,$modal=false;
     public $correo,$contraseña,$id_unidad,$personal_id;
+
+    protected $rules = [
+        'correo' => 'required|email',
+        'contraseña'=> 'required|min:6'
+    ];
+
     public function render()
     {
         $unidades=Unidad::where('id_departamento',$this->departamento)->get();
@@ -44,10 +50,11 @@ class EncargadoLive extends Component
     public function EditarRol($id){
         $this->personal_id=$id;
         $this->correo=Personal::find($id)->Usuario->email;
-        $this->contraseña=Personal::find($id)->Usuario->password;
+        $this->contraseña='';
         $this->MostrarModal();
     }
     public function GuardarRol(){
+        $this->validate();
         $personal=Personal::find($this->personal_id);
         User::updateOrCreate(['email'=>$this->correo],[
             'name'=>$personal->nombre.' '.$personal->apellido,

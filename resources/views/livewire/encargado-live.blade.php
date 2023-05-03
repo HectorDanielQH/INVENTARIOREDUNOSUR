@@ -1,10 +1,23 @@
 <div>
     <div>
+        <!--enlace redireccion-->
+        <div class="container w-4/5 mx-auto pt-7 pb-3 animate-pulse">
+            <a
+            class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" 
+            href="
+                {{
+                    route('pagadmin.index',['id' => $departamento])
+                }}
+            ">
+                <i class="fa-solid fa-arrow-left"></i>
+                VOLVER ATRAS
+            </a>
+        </div>
         {{-- Because she competes with no one, no one can compete with her. --}}
         <div class="container mx-auto  flex ">
-            <div class="flex w-full justify-center py-4">
+            <div class="flex w-full justify-center py-4 text-white">
                 <label for="">BUSCA LA UNIDAD</label>
-                <select wire:model="id_unidad" id="unidad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                <select wire:model="id_unidad" id="unidad" class="bg-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     <option value="" selected>Selecciona una unidad</option>
                     @foreach($unidades as $unidad)
                         <option value="{{$unidad->id}}">{{$unidad->NombreUnidad}}</option>
@@ -15,59 +28,57 @@
 
         
         <!--TABLE CON TAILWIND-->
-        <div class="container mx-auto">
+        <div class="container mx-auto bg-gray-800 text-orange-500">
             <div class="flex flex-wrap -mx-3">
-                <div class="w-full px-3">
-                    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                        <div class="flex flex-wrap -mx-3">
-                            <div class="w-full px-3">
-                                <table class="table-auto w-full">
-                                    <thead>
-                                        <tr>
-                                            <th class="px-4 py-2">CI</th>
-                                            <th class="px-4 py-2">NOMBRES</th>
-                                            <th class="px-4 py-2">APELLIDOS</th>
-                                            <th class="px-4 py-2">CELULAR</th>
-                                            <th class="px-4 py-2">DEPARTAMENTO</th>
-                                            <th class="px-4 py-2">UNIDAD</th>
-                                            <th class="px-4 py-2">OPCIONES</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($personal as $personales)
-                                        <tr>
-                                            <td class="px-4 py-2">{{$personales->ci}}</td>
-                                            <td class="px-4 py-2">{{$personales->nombre}}</td>
-                                            <td class="px-4 py-2">{{$personales->apellido}}</td>
-                                            <td class="px-4 py-2">{{$personales->celular}}</td>
-                                            <td class="px-4 py-2">{{$personales->departamentos->Departamento}}</td>
-                                            <td class="px-4 py-2">{{$personales->unidades->NombreUnidad}}</td>
-
-                                            <td class="px-4 py-2 flex justify-center items-center">
-                                                <!--VERIFICAR ROLE-->
-
-                                                @if($personales->rol == 'encargado')
-                                                    <button disabled class="block mx-1 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button" data-modal-toggle="authentication-modal">
-                                                        ASIGNADO
-                                                    </button>
-                                                    <button class="block mx-1 text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800" type="button" data-modal-toggle="authentication-modal" wire:click="EditarRol('{{$personales->id}}')">
-                                                        <i class="fa-solid fa-edit"></i>
-                                                    </button>
-                                                    <button class="block mx-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button" data-modal-toggle="authentication-modal" wire:click="EliminarRol('{{$personales->id}}')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                @elseif($personales->rol == 'personal')
-                                                    <button class="block mx-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button" data-modal-toggle="authentication-modal" wire:click="AñadirRol('{{$personales->id}}')">
-                                                        ASIGNAR
-                                                    </button>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="7" class="px-4 py-2 text-center">No hay registros</td>
-                                            </tr>
-                                        @endforelse
+              <div class="w-full px-3">
+                <div class="bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                  <div class="flex flex-wrap -mx-3">
+                    <div class="w-full px-3">
+                      <table class="table-auto w-full">
+                        <thead>
+                          <tr class="bg-orange-500">
+                            <th class="px-4 py-2 text-white">CI</th>
+                            <th class="px-4 py-2 text-white">NOMBRES</th>
+                            <th class="px-4 py-2 text-white">APELLIDOS</th>
+                            <th class="px-4 py-2 text-white">CELULAR</th>
+                            <th class="px-4 py-2 text-white">DEPARTAMENTO</th>
+                            <th class="px-4 py-2 text-white">UNIDAD</th>
+                            <th class="px-4 py-2 text-white">OPCIONES</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        @forelse ($personal as $personales)
+                          <tr>
+                            <td class="px-4 py-2 text-center">{{$personales->ci}}</td>
+                            <td class="px-4 py-2 text-center">{{$personales->nombre}}</td>
+                            <td class="px-4 py-2 text-center">{{$personales->apellido}}</td>
+                            <td class="px-4 py-2 text-center">{{$personales->celular}}</td>
+                            <td class="px-4 py-2 text-center">{{$personales->departamentos->Departamento}}</td>
+                            <td class="px-4 py-2 text-center">{{$personales->unidades->NombreUnidad}}</td>
+                            <td class="px-4 py-2 flex justify-center items-center">
+                              <!--VERIFICAR ROLE-->
+                              @if($personales->rol == 'encargado')
+                                <button disabled class="block mx-1 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button" data-modal-toggle="authentication-modal">
+                                    ASIGNADO
+                                </button>
+                                <button class="block mx-1 text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800" type="button" data-modal-toggle="authentication-modal" wire:click="EditarRol('{{$personales->id}}')">
+                                    <i class="fa-solid fa-edit"></i>
+                                </button>
+                                <button class="block mx-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button" data-modal-toggle="authentication-modal" wire:click="EliminarRol('{{$personales->id}}')">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @elseif($personales->rol == 'personal')
+                                <button class="block mx-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button" data-modal-toggle="authentication-modal" wire:click="AñadirRol('{{$personales->id}}')">
+                                    ASIGNAR
+                                </button>
+                            @endif
+                            </td>
+                        </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="px-4 py-2 text-center">No hay registros</td>
+                            </tr>
+                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -92,13 +103,25 @@
                                 <div>
                                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">INGRESA EL CORREO ELECTRÓNICO</label>
                                     <input type="email" wire:model="correo" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="INSERTA LA CORREO ELECTRÓNICO" required>
+                                    @error('correo') 
+                                    <h1 class="text-yellow-500 mt-4 text-center">
+                                        {{ __('EL CAMPO ESTÁ MAL INGRESADO O YA EXISTE') }}
+                                    
+                                    </h1>
+                                    @enderror   
                                 </div>
                                 <div>
-                                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">PASSWORD</label>
+                                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">CONTRASEÑA</label>
                                     <input type="text" wire:model="contraseña" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="INSERTA LA CONTRASEÑA" required>
+                                    @error('contraseña') 
+                                    <h1 class="text-yellow-500 mt-4 text-center">
+                                        {{ __('EL CAMPO DEBE SER AL MENOS DE 6 CARACTERES') }}
+                                    
+                                    </h1>
+                                    @enderror 
                                 </div>
 
-                                <button wire:click="GuardarRol()" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Asignar Encargado</button>
+                                <button wire:click="GuardarRol()" class="w-full text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:horange:bg-orange-700 dark:focus:ring-orange-800">Asignar Encargado</button>
                             </div>
                         </div>
                     </div>

@@ -24,9 +24,6 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <button wire:click="agregarRemisionessi" class="bg-blue-500 mt-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Agregar Remisión
-                                    </button>
                                 </div>
                             @else
                                 <div class="w-6/12 px-3">
@@ -55,6 +52,23 @@
                                 <div class="relative">
                                     <input wire:model="busqueda" type="text" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" placeholder="Código">
                                 </div>
+                            </div>
+                            <div class="w-full flex justify-around">
+                                <a 
+                                    href="{{
+                                        route('remisionmaterial.create', [
+                                            'req' => $departamento,
+                                        ])
+                                    }}"
+                                    class="bg-red-600 mt-5 hover:bg-red-700 shadow-md shadow-gray-700 text-white font-bold py-2 px-4 rounded">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Cancelar Remisión
+                                </a>
+                                <button wire:click="agregarRemisionessi" class="bg-green-600 mt-5 hover:bg-green-700 shadow-md shadow-gray-700 text-white font-bold py-2 px-4 rounded">
+                                    <!--candado-->
+                                    <i class="fas fa-save"></i>
+                                    Agregar Remisión
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -92,15 +106,18 @@
                                             @if($inv->remisiones != null)
                                                 @if($inv->cantidad-$inv->remisiones->sum('cantidad')==0)
                                                     <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded disabled" disabled>
+                                                        <i class="fas fa-lock"></i>
                                                         SE ACABÓ
                                                     </button>
                                                 @else
                                                     <button wire:click="agregar({{$inv->id}})" class="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded">
+                                                        <i class="fas fa-plus"></i>
                                                         Agregar
                                                     </button>
                                                 @endif
                                             @else
                                                 <button wire:click="agregar({{$inv->id}})" class="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded">
+                                                    <i class="fas fa-plus"></i>
                                                     Agregar
                                                 </button>
                                             @endif
@@ -123,7 +140,7 @@
 
     <!--REPORTE DE PRESTAMOS DE ESTE USUARIO-->
     <div class="container mx-auto mt-5">
-        <h1 class="text-2xl font-bold text-center">Reporte del préstamo</h1>
+        <h1 class="text-2xl text-white font-bold text-center">Reporte del préstamo</h1>
     </div>
     <div class="container mx-auto mt-5">
         <div class="flex flex-wrap mx-3">
@@ -147,6 +164,7 @@
                                         <td class="border px-4 py-2">{{$remision->cantidad}}</td>
                                         <td class="border px-4 py-2 flex justify-center items-center">
                                             <button wire:click="eliminarRemision({{$remision->id}})" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                                <i class="fas fa-trash"></i>
                                                 Eliminar
                                             </button>
                                         </td>
