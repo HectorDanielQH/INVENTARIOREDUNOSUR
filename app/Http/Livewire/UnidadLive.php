@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Unidad;
 use Livewire\Component;
+use Exception;
 
 class UnidadLive extends Component
 {
@@ -46,6 +47,13 @@ class UnidadLive extends Component
         $this->MostrarModal();
     }
     public function EliminarUsuario($NombreUnidad){
-        Unidad::where('NombreUnidad',$NombreUnidad)->delete();
+        try{
+            Unidad::where('NombreUnidad',$NombreUnidad)->delete();
+        }
+        catch (Exception $e){
+            session()->flash('message', 'No puedes hacer debido a que ya tienes registros en esta unidad');
+        }
+    }
+    public function falso(){
     }
 }

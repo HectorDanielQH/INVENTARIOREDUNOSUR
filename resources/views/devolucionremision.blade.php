@@ -1,5 +1,6 @@
 <x-app-layout>
 <div>
+
     <!----------| Remision tailwind |---------->
     <!---------- titulo encabezado con tailwind ---------->
     <div class="container mx-auto mt-5">
@@ -18,9 +19,18 @@
                                 {{__('REMISIÓN NUMERO: ')}}{{$remisiones[0]->numRemision}}
                             </h1>
                         </div>
+                        <div class="container w-4/5 mx-auto pt-7 pb-3">
+                            <a class="bg-red-500 hover:bg-red-700 animate-pulse text-white font-bold py-2 px-4 rounded" 
+                            href="javascript:void(0)" 
+                            onclick="history.back()">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            VOLVER ATRÁS
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     <!----------| fin titulo encabezado con tailwind |---------->

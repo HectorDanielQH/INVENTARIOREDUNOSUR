@@ -7,6 +7,7 @@ use App\Models\Inventario;
 use App\Models\Personal;
 use App\Models\Unidad;
 use Livewire\Component;
+use Exception;
 
 class InventarioLive extends Component
 {
@@ -50,7 +51,7 @@ class InventarioLive extends Component
     public function Guardar(){
         $this->validate([
             'cantidadProducto'=>'required|min:1',
-            'codigoProducto'=>'required|min:1|max:20',
+            'codigoProducto' => 'required|min:1|max:20|unique:inventarios,codigo,NULL,id,id_departamento,'. $this->departamento,
             'descripcionProducto'=>'required|min:5',
             'activoProducto'=>'required',
             'id_unidad'=>'required',
@@ -62,10 +63,10 @@ class InventarioLive extends Component
         Inventario::updateOrCreate(['id'=>$this->idProducto],
         [
             'cantidad'=>$this->cantidadProducto,
-            'codigo'=>$this->codigoProducto,
+            'codigo'=>strtoupper($this->codigoProducto),
             'detalle'=>strtoupper($this->descripcionProducto),
             'id_activo'=>$this->activoProducto,
-            'serie'=>$this->serieProducto,
+            'serie'=>strtoupper($this->serieProducto),
             'estado'=>$this->estadoProducto,
             'precio'=>$this->precioProducto,
             'id_unidad'=>$this->id_unidad,
@@ -91,7 +92,12 @@ class InventarioLive extends Component
         $this->MostrarModal();
     }
     public function EliminarInventario($id){
-        Inventario::find($id)->delete();
+        try{
+            Inventario::find($id)->delete();
+        }
+        catch (Exception $e){
+            session()->flash('message', 'No puedes eliminarlo debido a que ya tienes registros en sistema');
+        }
     }
 
     //---------------TIPO DE ACTIVO-------------------
@@ -113,6 +119,13 @@ class InventarioLive extends Component
         $this->CerrarModal();
     }
     public function EliminarActivo($id){
-        Activos::where('id',$id)->delete();
+        try{
+            Activos::where('id',$id)->delete();
+        }
+        catch (Exception $e){
+            session()->flash('message', 'No puedes eliminarlo debido a que ya tienes registros en sistema');
+        }
+    }
+    public function falso(){
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Personal;
 use App\Models\Unidad;
+use Exception;
 
 class PersonalLive extends Component
 { 
@@ -75,6 +76,13 @@ class PersonalLive extends Component
         $this->MostrarModal();
     }
     public function EliminarUsuario($ci){
-        Personal::where('ci',$ci)->delete();
+        try{
+            Personal::where('ci',$ci)->delete();
+        }
+        catch (Exception $e){
+            session()->flash('message', 'No puedes eliminarlo debido a que ya tienes registros en sistema');
+        }
+    }
+    public function falso(){
     }
 }

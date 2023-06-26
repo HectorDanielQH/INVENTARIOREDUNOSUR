@@ -17,6 +17,7 @@
                                 <br/>
                                 {{__('REMISIÓN NUMERO: ')}}{{$remisiones[0]->numRemision}}
                             </h1>
+                            
                             @if ($remisiones[0]->fechadevolucion==null)
                                 <div class="
                                 w-full
@@ -38,6 +39,21 @@
                                         class="bg-blue-500 hover:bg-blue-700 shadow-md shadow-gray-600 text-white font-bold py-2 px-4 rounded float-right mt-4">
                                         GENERAR PDF
                                     </a>
+                                </div>
+                            @else
+                                <div class="
+                                    w-full
+                                    flex
+                                    justify-around
+                                    ">
+                                        <a 
+                                        href="{{
+                                            redirect()->back()->getTargetUrl()
+                                        }}"
+                                        class="bg-orange-500 hover:bg-orange-700 shadow-md shadow-gray-600 text-white font-bold py-2 px-4 rounded float-right mt-4">
+                                            <i class="fas fa-arrow-left"></i>
+                                            VOLVER
+                                        </a>
                                 </div>
                             @endif
                         </div>

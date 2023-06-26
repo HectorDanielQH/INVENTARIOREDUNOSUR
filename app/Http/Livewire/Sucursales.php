@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Sucursal;
 use Livewire\Component;
+use Exception;
 
 class Sucursales extends Component
 {
@@ -46,11 +47,18 @@ class Sucursales extends Component
     }
     public function destroy($id)
     {
-        $valor=Sucursal::find($id);
-        $valor->delete();
-        $this->LimpiarDatos();
+        try{
+            $valor=Sucursal::find($id);
+            $valor->delete();
+            $this->LimpiarDatos();
+        }
+        catch (Exception $e){
+            session()->flash('message', 'No puedes hacer debido a que ya tienes registros en tu base de datos');
+        }
     }
     public function redireccion($id){
         return redirect()->route('pagadmin.index',compact('id'));
+    }
+    public function falso(){
     }
 }

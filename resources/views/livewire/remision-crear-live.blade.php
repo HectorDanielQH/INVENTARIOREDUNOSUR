@@ -139,9 +139,18 @@
 
 
     <!--REPORTE DE PRESTAMOS DE ESTE USUARIO-->
-    <div class="container mx-auto mt-5">
+    <div class="flex w-4/6 justify-between mx-auto mt-5">
         <h1 class="text-2xl text-white font-bold text-center">Reporte del préstamo</h1>
+        <!--BOTON DE PRESTAR-->
+        @if(!$agregarremisionsi)
+            <div class="flex items-center">
+                <button wire:click="Guardardatosall" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-md">
+                    Guardar Préstamo
+                </button>
+            </div>
+        @endif
     </div>
+    
     <div class="container mx-auto mt-5">
         <div class="flex flex-wrap mx-3">
             <div class="w-full px-3">
@@ -181,23 +190,4 @@
             </div>
         </div>
     </div>
-
-    <!--BOTON DE PRESTAR-->
-    @if(!$agregarremisionsi)
-        <div class="container mx-auto mt-5">
-            <div class="flex flex-wrap mx-3">
-                <div class="w-full px-3">
-                    <div>
-                        <div class="overflow-x-auto">
-                            <div class="flex justify-start">
-                                <button wire:click="Guardardatosall" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                    Guardar Préstamo
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
 </div>
